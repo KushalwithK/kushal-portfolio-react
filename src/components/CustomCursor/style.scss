@@ -1,0 +1,68 @@
+.cursor-dot,
+.cursor-dot-outline {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 99999999999;
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #fff;
+  transition: 0.5s opacity ease-in-out;
+}
+
+.cursor-dot-outline {
+  border: 1px solid rgb(160, 160, 160);
+  opacity: 0.3 !important;
+  width: 3rem;
+  height: 3rem;
+  transition: 0.3s ease-in-out;
+  transition-property: height, width, opacity, background-color;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Projects,
+.About,
+.Contact,
+.Explore,
+.Email,
+.Twitter,
+.Instagram,
+.View-Project {
+  border: none;
+  width: 5rem;
+  height: 5rem;
+  background: #ffffff13;
+  opacity: 1 !important;
+  font-family: "Gilroy Thin", sans-serif;
+  backdrop-filter: blur(6px);
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 24px;
+  color: #fff;
+  font-size: 0.8rem;
+}
+.invert-cursor {
+  border: none;
+  width: 5rem;
+  height: 5rem;
+  background: #ffffff13;
+  opacity: 1 !important;
+  backdrop-filter: invert(100%);
+}
+
+.view-project-dot {
+  opacity: 0 !important;
+}
+
+@media only screen and (max-width: 1024px) {
+  .cursor-dot,
+  .cursor-dot-outline {
+    display: none;
+  }
+}

@@ -1,0 +1,26 @@
+.App {
+  width: 100%;
+}
+
+span h1 h2 h3 h4 h5 h6 p {
+  text-decoration: none;
+}
+
+html.has-scroll-smooth {
+  overflow: hidden;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;  
+}
+
+* {
+  cursor: none;
+  user-select: none;
+}
+
+::selection {
+  background-color: white;
+  color: black;
+}
