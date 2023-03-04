@@ -5,92 +5,41 @@
   /* cursor: none; */
 }
 body {
-  background-color: #1a1a1a;
+  background-color: #131313;
   color: #fff;
   width: 100vw;
 }
 
 @font-face {
-  font-family: "gallientregular";
-  src: url("/Fonts/gallient/gallientregular-ezomp-webfont.woff2")
-      format("woff2"),
-    url("../public/fonts/gallient/gallientregular-ezomp-webfont.woff")
-      format("woff");
-  font-weight: normal;
+  font-family: "LifeT Italic";
   font-style: normal;
+  font-weight: normal;
+  src: local("LifeT_Italic"),
+    url("/fonts/life-t/LifeT_Italic.ttf") format("woff");
 }
 
 @font-face {
-  font-family: "Fondomento Italic";
+  font-family: "HelmetNeue Regular";
   font-style: normal;
   font-weight: normal;
-  src: local("Fondomento-Italic"),
-    url("/fonts/Fondamento-Italic.ttf") format("woff");
+  src: local("HelmetNeue-Regular"),
+    url("/fonts/helmet/HelmetNeue-Regular.otf") format("woff");
 }
 
 @font-face {
-  font-family: "Kayak Sans Bold";
+  font-family: "Sacred Valley";
   font-style: normal;
   font-weight: normal;
-  src: local("Kayak Sans Bold"),
-    url("/fonts/kayak/Kayak_Sans_Bold.otf") format("woff");
+  src: local("Sacred Valley"),
+    url("/fonts/sacred-valley/sacred-valley-400.ttf") format("woff");
 }
 
 @font-face {
-  font-family: "Kayak Sans Regular";
+  font-family: "Made Bon Voyage Regular";
   font-style: normal;
   font-weight: normal;
-  src: local("Kayak Sans Regular"),
-    url("/fonts/kayak/Kayak_Sans_Regular.otf") format("woff");
-}
-
-@font-face {
-  font-family: "Kayak Sans Light";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Kayak Sans Light"),
-    url("/fonts/kayak/Kayak_Sans_Light.otf") format("woff");
-}
-
-@font-face {
-  font-family: "Snickles";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Snickles"),
-    url("/fonts/snickles/Snickles.ttf") format("woff");
-}
-
-@font-face {
-  font-family: "Stanley";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Stanley"),
-    url("/fonts/stanley/Stanley.otf") format("woff");
-}
-
-@font-face {
-  font-family: "Newake";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Newake"),
-    url("/fonts/newake/newake-demo-400.otf") format("woff");
-}
-
-@font-face {
-  font-family: "Thunder Medium";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Thunder Medium"),
-    url("/fonts/thunder/Thunder-MediumLC.woff2") format("woff");
-}
-
-
-@font-face {
-  font-family: "Sk Modernist Regular";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Sk Modernist Regular"),
-    url("/fonts/sk_modernist/Sk-Modernist-Regular.otf") format("woff");
+  src: local("Sacred Valley"),
+    url("/fonts/sacred-valley/sacred-valley-400.ttf") format("woff");
 }
 
 @font-face {
@@ -99,6 +48,14 @@ body {
   font-weight: normal;
   src: local("Times Sans Serif"),
     url("/fonts/times/Times-Sans-Serif.ttf") format("woff");
+}
+
+@font-face {
+  font-family: "Times Now Semi Italic";
+  font-style: normal;
+  font-weight: normal;
+  src: local("TimesNow-SemiLightItalic"),
+    url("/fonts/timesNow/TimesNow-SemiLightItalic.woff") format("woff");
 }
 
 @font-face {

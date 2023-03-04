@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { FiArrowRight } from "react-icons/fi";
+import AboveFooter from "../subComponents/AboveFooter";
+import Footer from "../Footer/Footer";
 
 const Contact = () => {
   return (
     <>
-      <Container>
+      <Container data-scroll-section>
         <div className="content">
           <div className="form">
             <span className="heading">Send a hi!</span>
@@ -75,6 +77,8 @@ const Contact = () => {
           </div>
         </div>
       </Container>
+      <AboveFooter/>
+      <Footer/>
     </>
   );
 };

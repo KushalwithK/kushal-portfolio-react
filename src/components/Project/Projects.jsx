@@ -7,42 +7,31 @@ import { FaDiscord, FaLinkedinIn } from "react-icons/fa";
 import { BiMailSend } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
+import AboveFooter from "../subComponents/AboveFooter";
+import { baseUrl, projects as project, images } from "../services/Provider";
+import axios from "axios";
 
 const Projects = ({ setViewProject }) => {
-  const [projects, setProjects] = useState([
-    {
-      projectRank: "01",
-      projectImg:
-        "https://uploads-ssl.webflow.com/611868992ba0adbb0e5938f1/61b360340618d937e9ded89a_drink-ky-app-screens.jpg",
-      ProjectTitle: "Chemin Esports",
-    },
-    {
-      projectRank: "02",
-      projectImg:
-        "https://uploads-ssl.webflow.com/611868992ba0adbb0e5938f1/618f3ad5f6c6e05234740557_sarnco-mark.jpg",
-      ProjectTitle: "Project Oxygen",
-    },
-    {
-      projectRank: "03",
-      projectImg:
-        "https://uploads-ssl.webflow.com/611868992ba0adbb0e5938f1/61b360340618d937e9ded89a_drink-ky-app-screens.jpg",
-      ProjectTitle: "Lemon Juice",
-    },
-    {
-      projectRank: "04",
-      projectImg:
-        "https://uploads-ssl.webflow.com/611868992ba0adbb0e5938f1/61b360340618d937e9ded89a_drink-ky-app-screens.jpg",
-      ProjectTitle: "Project Width",
-    },
-    {
-      projectRank: "05",
-      projectImg:
-        "https://uploads-ssl.webflow.com/611868992ba0adbb0e5938f1/61b360340618d937e9ded89a_drink-ky-app-screens.jpg",
-      ProjectTitle: "Alive",
-    },
-  ]);
+  const [projects, setProjects] = useState([]);
 
   const tl = gsap.timeline();
+
+  const fetchData = async () => {
+    const response = await fetch(baseUrl + project)
+    const data = response.json
+    console.log(data.data)
+  }
+
+  useEffect(() => {
+
+    axios.get(baseUrl + project).then((data) => {
+      setProjects(data.data)
+      console.table(data.data)
+    }).catch((error) => {
+      console.log(console.error(error));
+    })
+
+  }, [])
 
   useEffect(() => {
     tl.from(".works-title span", {
@@ -92,21 +81,21 @@ const Projects = ({ setViewProject }) => {
                   }}
                 >
                   <Link to="/works/54">
-                    <img src={item.projectImg} />
+                    <img src={baseUrl + images + item.images[0].name} />
                   </Link>
                 </ImageHolder>
                 <ProjectInfo>
                   <div>
                     <p>#</p>
                     <div className="titleNdesc">
-                      <h1>{item.ProjectTitle}</h1>
+                      <h4>{item.title}</h4>
                       <p>
                         <span className="team">
-                          Team — <span className="bold">TeamName</span>
+                          Team — <span className="bold">{item.author}</span>
                         </span>
                         <span className="dot">•</span>
                         <span className="madeFor">
-                          Made for — <span className="bold">BrandName</span>
+                          Made for — <span className="bold">{item.client}</span>
                         </span>
                       </p>
                     </div>
@@ -115,50 +104,9 @@ const Projects = ({ setViewProject }) => {
               </ProjectCard>
             ))}
           </ProjectsContainer>
-          <ContactContainer>
-            <h1 data-scroll data-scroll-speed="2">
-              Have a project in mind?
-            </h1>
-            <p data-scroll data-scroll-speed="1">
-              Let's have a discussion together and turn your imagination into
-              creation.
-            </p>
-            <div className="contact">
-              <Link id="contact" to="/contact">
-                <BiMailSend />
-              </Link>
-              <a
-                href="http://instagram.com/pow3r24k"
-                target="_blank"
-                id="instagram"
-              >
-                <FiInstagram />
-              </a>
-              <a
-                href="https://github.com/KushalwithK"
-                target="_blank"
-                id="github"
-              >
-                <FiGithub />
-              </a>
-              <a
-                href="https://discord.gg/ktUdBEezmN"
-                target="_blank"
-                id="discord"
-              >
-                <FaDiscord />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/kushal-shah-725a21246/"
-                target="_blank"
-                id="linkedin"
-              >
-                <FaLinkedinIn />
-              </a>
-            </div>
-          </ContactContainer>
         </Content>
       </Container>
+      <AboveFooter />
       <Footer setViewProject={setViewProject} />
     </RouteTransition>
   );
@@ -169,14 +117,13 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  font-family: "Times";
+  font-family: "Made Bon Voyage Regular";
   height: 60vh;
   display: flex;
   justify-content: end;
   flex-direction: column;
   margin: 0 5rem;
   font-size: 10vw;
-  font-weight: 600;
   margin-bottom: 10rem;
   line-height: 0.9;
   span {
@@ -238,6 +185,7 @@ const ImageHolder = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 1.5rem;
     /* clip-path: inset(0 100% 0 0);
     transition: all 1.2s cubic-bezier(0.77, 0, 0.175, 1);
     scale: 1.3; */
@@ -258,7 +206,7 @@ const ImageHolder = styled.div`
 `;
 
 const ProjectInfo = styled.div`
-  font-family: "Times";
+  font-family: "Made Bon Voyage Regular";
   display: flex;
   padding: 1.5rem 0;
   padding-bottom: 0;
@@ -275,8 +223,9 @@ const ProjectInfo = styled.div`
     .titleNdesc {
       display: flex;
       flex-direction: column;
-      h1 {
+      h4 {
         font-size: 5rem;
+        font-weight: 100;
       }
       p {
         font-family: "gilroy light";
@@ -304,56 +253,6 @@ const ProjectInfo = styled.div`
         }
       }
     }
-  }
-`;
-
-const ContactContainer = styled.div`
-  margin: 10rem 5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  h1 {
-    font-family: "Times";
-    font-size: 9rem;
-    line-height: 1;
-    text-align: center;
-  }
-  p {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-    font-family: "Gilroy Thin";
-    letter-spacing: 2px;
-  }
-  a {
-    transition: all 0.3s linear;
-    color: white;
-    text-decoration: none;
-  }
-
-  #contact:hover {
-    color: #ff9b9b;
-  }
-  #instagram:hover {
-    color: #cd486b;
-  }
-  #github:hover {
-    color: #171515;
-  }
-  #discord:hover {
-    color: #7289da;
-  }
-  #linkedin:hover {
-    color: #0a66c2;
-  }
-  .contact {
-    margin-top: 3rem;
-    display: flex;
-    font-size: 2.5rem;
-    justify-content: space-between;
-    align-items: center;
-    font-family: "Gilroy Light";
-    width: 40%;
   }
 `;
 

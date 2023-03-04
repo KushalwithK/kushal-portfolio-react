@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import gsap from "gsap";
 
@@ -7,6 +7,8 @@ const Preloader = () => {
 
   const curve = "M0 502S175 272 500 272s500 230 500 230V0H0Z";
   const flat = "M0 2S175 1 500 1s500 1 500 1V0H0Z";
+
+  const text = useRef()
 
   useEffect(() => {
     tl.from(".loader-wrap-heading h1", {
@@ -52,7 +54,7 @@ const Preloader = () => {
 
         <div className="loader-wrap-heading">
           <span>
-            <h1>Initializing</h1>
+            <h1 ref={text}>Kushal</h1>
           </span>
         </div>
       </div>
@@ -67,7 +69,7 @@ const Container = styled.div`
   right: 0;
   bottom: 0;
   z-index: 999999;
-  font-family: "Times";
+  font-family: "Made Bon Voyage Regular";
   span {
     overflow: hidden;
     display: block;

@@ -6,29 +6,27 @@ import RouteTransition from "../subComponents/RouteTransition";
 import gsap from "gsap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import AboveFooter from "../subComponents/AboveFooter";
+import { baseUrl, projects as project, images } from "../services/Provider";
+import axios from "axios";
 
 const Home = ({ setViewProject }) => {
-  const [projects, setProjects] = useState([
-    {
-      projectImg:
-        "https://uploads-ssl.webflow.com/611868992ba0adbb0e5938f1/61b360340618d937e9ded89a_drink-ky-app-screens.jpg",
-      ProjectTitle: "Chemin Esports",
-    },
-    {
-      projectImg:
-        "https://uploads-ssl.webflow.com/611868992ba0adbb0e5938f1/618f3ad5f6c6e05234740557_sarnco-mark.jpg",
-      ProjectTitle: "Project blue",
-    },
-    {
-      projectImg:
-        "https://uploads-ssl.webflow.com/611868992ba0adbb0e5938f1/61b360340618d937e9ded89a_drink-ky-app-screens.jpg",
-      ProjectTitle: "Oxygen",
-    },
-  ]);
+  const [projects, setProjects] = useState([]);
 
   let counting = 1;
 
   const tl = gsap.timeline();
+
+  useEffect(() => {
+
+    axios.get(baseUrl + project).then((data) => {
+      setProjects(data.data)
+      console.table(data.data)
+    }).catch((error) => {
+      console.log(console.error(error));
+    })
+
+  }, []);
 
   useEffect(() => {
     tl.from(".hero-title div", {
@@ -49,43 +47,10 @@ const Home = ({ setViewProject }) => {
       <Container data-scroll-section>
         <Content>
           <Header className="hero-title" data-scroll data-scroll-speed="2">
-            <span>KUSHAL SHAH</span>
-            <span className="skills">
-              <span
-                className="app"
-                onMouseEnter={() => {
-                  setViewProject("invert-cursor");
-                }}
-                onMouseLeave={() => {
-                  setViewProject(false);
-                }}
-              >
-                App Developer
-              </span>
-              <span className="dot">•</span>
-              <span
-                className="web"
-                onMouseEnter={() => {
-                  setViewProject("invert-cursor");
-                }}
-                onMouseLeave={() => {
-                  setViewProject(false);
-                }}
-              >
-                Web Developer
-              </span>
-              <span className="dot">•</span>
-              <span
-                className="java"
-                onMouseEnter={() => {
-                  setViewProject("invert-cursor");
-                }}
-                onMouseLeave={() => {
-                  setViewProject(false);
-                }}
-              >
-                Java Backend Developer
-              </span>
+            <span>
+              <span>INNOVATIVE</span>
+              <span>FULL STACK</span>
+              <span>DEVELOPER</span>
             </span>
           </Header>
           <AboutSection>
@@ -112,7 +77,7 @@ const Home = ({ setViewProject }) => {
             <div>
               <p>
                 <span>
-                  Hey, it's Kushal Shah.
+                  Hey, im Kushal Shah.
                   <br />A Freelance Android and Web developer from India who
                   likes to make Creative App and Websites!
                 </span>
@@ -130,7 +95,7 @@ const Home = ({ setViewProject }) => {
                   }}
                   to="/about"
                 >
-                  <span>Know More</span>
+                  <span>Read More</span>
                   <svg
                     width="37"
                     height="17"
@@ -142,7 +107,7 @@ const Home = ({ setViewProject }) => {
                       fillRule="evenodd"
                       clipRule="evenodd"
                       d="M27.5377 1.1906L28.1347 2.63918C29.0998 4.98087 30.8573 6.86515 33.0501 8.0001L0 8.0001V9.0001L33.05 9.0001C30.8572 10.135 29.0998 12.0193 28.1347 14.361L27.5377 15.8096L28.4623 16.1906L29.0593 14.742C30.287 11.763 32.9311 9.60166 36.0948 8.99103V8.00915C32.9311 7.39852 30.287 5.23713 29.0593 2.25815L28.4623 0.80957L27.5377 1.1906Z"
-                      fill="#b3cc6d"
+                      fill="#c9c9c9"
                     ></path>
                   </svg>
                 </Link>
@@ -171,18 +136,17 @@ const Home = ({ setViewProject }) => {
                     setViewProject(false);
                   }}
                 >
-                  <Link to="/works/54">
-                    <img src={item.projectImg} />
+                  <Link to="/works/" >
+                    <img src={baseUrl + images + item.images[0].name} />
                   </Link>
                 </ImageHolder>
                 <ProjectInfo>
                   <div>
                     <p>#</p>
                     <div className="titleNdesc">
-                      <h1>{item.ProjectTitle}</h1>
+                      <span>{item.title}</span>
                       <p>
-                        This is a mandatory description, please read it.. bsdk
-                        padhle naaa
+                        {item.description}
                       </p>
                     </div>
                   </div>
@@ -190,7 +154,7 @@ const Home = ({ setViewProject }) => {
                 </ProjectInfo>
               </ProjectCard>
             ))}
-            <ViewAllBtn data-scroll data-scroll-speed="2">
+            <ViewAllBtn data-scroll data-scroll-speed="1">
               <Link
                 onMouseEnter={() => {
                   setViewProject("invert-cursor");
@@ -201,9 +165,9 @@ const Home = ({ setViewProject }) => {
                 onClick={() => {
                   setViewProject(false);
                 }}
-                to="/works"
+                to="/projects"
               >
-                <span>View All</span>
+                <span>Explore</span>
                 <svg
                   width="37"
                   height="17"
@@ -215,7 +179,7 @@ const Home = ({ setViewProject }) => {
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M27.5377 1.1906L28.1347 2.63918C29.0998 4.98087 30.8573 6.86515 33.0501 8.0001L0 8.0001V9.0001L33.05 9.0001C30.8572 10.135 29.0998 12.0193 28.1347 14.361L27.5377 15.8096L28.4623 16.1906L29.0593 14.742C30.287 11.763 32.9311 9.60166 36.0948 8.99103V8.00915C32.9311 7.39852 30.287 5.23713 29.0593 2.25815L28.4623 0.80957L27.5377 1.1906Z"
-                    fill="#b3cc6d"
+                    fill="#c9c9c9"
                   ></path>
                 </svg>
               </Link>
@@ -253,7 +217,7 @@ const Home = ({ setViewProject }) => {
         </Content>
       </Container>
       <Quote setViewProject={setViewProject} />
-      {/* <FooterTitle titleLink="/works" title="Recent Works" /> */}
+      <AboveFooter />
       <Footer setViewProject={setViewProject} />
     </RouteTransition>
   );
@@ -267,7 +231,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding-top: 2.5rem;
+  padding-top: 3rem;
 `;
 const Header = styled.div`
   height: 100vh;
@@ -276,67 +240,20 @@ const Header = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  > span {
-    text-align: center;
-    font-family: "Times";
-    font-size: 11vw;
+  span {
+    display: block;
+    font-family: "Made Bon Voyage Regular";
+    font-size: 10vw;
     line-height: 1;
-  }
 
-  .skills {
-    text-align: center;
-    font-family: "Sk Modernist Regular";
-    font-size: 1.8vw;
-    line-height: 1;
-    letter-spacing: 3px;
-    color: #ffffffc7;
-    margin-top: 1rem;
-
-    span {
-      margin: 0 1rem;
-      transition: all 0.3s ease-in-out;
-      text-decoration: none;
+    &:nth-child(2) {
+      font-size: 12vw;
     }
 
-    .dot {
-      color: #ffffff4e;
+    &:nth-child(3) {
+      font-size: 15vw;
     }
 
-    .app:hover ~ .web {
-      color: #ffffff4e;
-    }
-
-    .app:hover ~ .java {
-      color: #ffffff4e;
-    }
-
-    .web:hover ~ .app {
-      color: #ffffff4e;
-    }
-
-    .web:hover ~ .java {
-      color: #ffffff4e;
-    }
-
-    .java:hover ~ .app {
-      color: #ffffff4e;
-    }
-
-    .java:hover ~ .web {
-      color: #ffffff4e;
-    }
-  }
-
-  @media (max-width: 768px) {
-    height: 90vh;
-
-    font-size: 15vw;
-    div {
-      text-align: center;
-      :nth-child(2) {
-        text-align: center;
-      }
-    }
   }
 `;
 
@@ -345,7 +262,7 @@ const AboutSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Times";
+  font-family: "Gilroy Regular";
   text-align: center;
   width: 55%;
   margin: 0 auto;
@@ -406,14 +323,14 @@ const Button = styled.div`
   a {
     color: #fff;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     svg {
       margin-left: 1rem;
     }
   }
   @media (max-width: 768px) {
     width: 120px;
-    margin: 2rem 0rem;
+    /* margin: 2rem 0rem; */
   }
 `;
 
@@ -421,7 +338,7 @@ const ProjectsSection = styled.section``;
 
 const ProjectTitle = styled.div`
   font-size: clamp(4rem, 10vw, 10rem);
-  font-family: "Times";
+  font-family: "Made Bon Voyage Regular";
   line-height: 1;
   padding-bottom: 15vh;
   p {
@@ -459,11 +376,13 @@ const ImageHolder = styled.div`
   position: relative;
   a {
     display: block;
+    height: 100%;
   }
   img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 1.5rem;
   }
 
   @media (max-width: 1024px) {
@@ -477,7 +396,7 @@ const ImageHolder = styled.div`
 `;
 
 const ProjectInfo = styled.div`
-  font-family: "Times";
+  font-family: "Made Bon Voyage Regular";
   display: flex;
   padding: 1.5rem 0;
   padding-bottom: 0;
@@ -494,7 +413,7 @@ const ProjectInfo = styled.div`
     .titleNdesc {
       display: flex;
       flex-direction: column;
-      h1 {
+      span {
         font-size: 5rem;
       }
       p {
@@ -505,10 +424,39 @@ const ProjectInfo = styled.div`
       }
     }
   }
+
+  @media (max-width: 1024px) {
+      div {
+        .titleNdesc {
+        span {
+          font-size: 4rem;
+        }
+        p {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    div {
+      p {
+        font-size: 1.5rem;
+      }
+        .titleNdesc {
+        span {
+          font-size: 2.5rem;
+        }
+        p {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
 `;
 
 const ViewAllBtn = styled.div`
-  font-family: "Times";
+  font-family: "Made Bon Voyage Regular";
   font-size: 9rem;
   display: flex;
   align-items: center;
@@ -524,6 +472,23 @@ const ViewAllBtn = styled.div`
   svg {
     width: 5rem;
     height: 5rem;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 7rem;
+    svg {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+  @media (max-width: 768px) {
+    @media (max-width: 1024px) {
+    font-size: 4rem;
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
   }
 `;
 
@@ -586,13 +551,13 @@ const Testimonial = styled.div`
         color: #d1d1d1;
 
         .text {
-          font-family: "Fondomento Italic";
+          font-family: "Made Bon Voyage Regular";
           color: #d1d1d1;
         }
       }
       .credit {
         font-size: 1.5rem;
-        font-family: "Fondomento Italic";
+        font-family: "Made Bon Voyage Regular";
         color: #7a7a7a;
         margin-top: 2rem;
         text-align: end;

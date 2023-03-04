@@ -34,7 +34,7 @@ const Footer = ({ setViewProject }) => {
           <span className="contacts">
             <span
               onMouseEnter={() => {
-                setViewProject("Email");
+                setViewProject("invert-cursor");
               }}
               onMouseLeave={() => {
                 setViewProject(false);
@@ -44,7 +44,7 @@ const Footer = ({ setViewProject }) => {
             </span>{" "}
             <span
               onMouseEnter={() => {
-                setViewProject("Twitter");
+                setViewProject("invert-cursor");
               }}
               onMouseLeave={() => {
                 setViewProject(false);
@@ -54,7 +54,7 @@ const Footer = ({ setViewProject }) => {
             </span>{" "}
             <span
               onMouseEnter={() => {
-                setViewProject("Instagram");
+                setViewProject("invert-cursor");
               }}
               onMouseLeave={() => {
                 setViewProject(false);
@@ -90,8 +90,7 @@ const Footer = ({ setViewProject }) => {
           </div>
         </div>
         <span className="FooterCredits">
-          Made by <span className="name">Kushal Shah</span>,{" "}
-          <span className="cleverStudio">Clever Studio.</span>
+          Made by <span className="name">Kushal Shah.</span>
         </span>
       </div>
     </FooterComp>
@@ -211,7 +210,7 @@ const FooterComp = styled.div`
       font-family: "Gilroy Regular";
 
       .name {
-        font-family: "Gilroy Medium";
+        font-family: "Gilroy Semibold";
       }
 
       .cleverStudio {
