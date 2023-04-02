@@ -9,17 +9,20 @@ const Navbar = ({ setViewProject }) => {
   const tl = gsap.timeline({ paused: true });
 
   const openMenu = () => {
+    console.log("chal rha hai!")
     tl.play();
   };
 
   const closeMenu = () => {
+    console.log("ye bhi chal rha hai!")
     tl.reverse();
   };
 
   useEffect(() => {
     tl.to(".mainNav", {
-      x: "0",
+      left: "0%",
       ease: "Expo.easeInOut",
+      duration: 1
     });
 
     tl.to(".navLink", {
@@ -34,19 +37,19 @@ const Navbar = ({ setViewProject }) => {
       opacity: "1",
       ease: "Expo.easeOut",
     });
-  }, []);
+  });
 
   return (
     <>
       <NavPhone>
         <span className="logoMobile">LOGO</span>
-        <span className="openMenu" onClick={openMenu}>
-          <BiMenuAltRight />
+        <span className="openMenu">
+          <BiMenuAltRight onClick={openMenu} />
         </span>
       </NavPhone>
       <Nav className="mainNav">
-        <span className="closeMenu" onClick={closeMenu}>
-          <CgClose />
+        <span className="closeMenu">
+          <CgClose onClick={closeMenu} />
         </span>
         <span
           className="logoPC"
@@ -64,36 +67,24 @@ const Navbar = ({ setViewProject }) => {
             <ul>
               <Link
                 className="navLink"
-                onMouseEnter={() => {
-                  setViewProject("Projects");
-                }}
-                onMouseLeave={() => {
-                  setViewProject(false);
-                }}
+                to="/"
+              >
+                Home
+              </Link>
+              <Link
+                className="navLink"
                 to="/projects"
               >
                 Projects
               </Link>
               <Link
                 className="navLink"
-                onMouseEnter={() => {
-                  setViewProject("About");
-                }}
-                onMouseLeave={() => {
-                  setViewProject(false);
-                }}
                 to="/about"
               >
                 About
               </Link>
               <Link
                 className="navLink"
-                onMouseEnter={() => {
-                  setViewProject("Contact");
-                }}
-                onMouseLeave={() => {
-                  setViewProject(false);
-                }}
                 to="/contact"
               >
                 Contact
@@ -129,7 +120,8 @@ const NavPhone = styled.div`
   }
 
   .openMenu {
-    font-size: 1.7rem;
+    font-size: 2rem;
+    z-index: 999;
   }
 
   @media screen and (max-device-width: 916px) {
@@ -150,6 +142,7 @@ const Nav = styled.nav`
   z-index: 9999;
   transform: none;
 
+  
   .closeMenu {
     display: none;
   }
@@ -179,9 +172,14 @@ const Nav = styled.nav`
           color: #d4d4d4;
           text-decoration: none;
           margin: 0 2.5rem;
-          font-family: "Gilroy Light";
+          font-family: "Gilroy Regular";
           opacity: 1;
+          letter-spacing: 1px;
           transform: none;
+
+          &.active {
+            font-family: "Gilroy Medium";
+          }
         }
 
         .active {
@@ -193,6 +191,7 @@ const Nav = styled.nav`
     .location {
       font-family: "Gilroy Regular";
       opacity: 1;
+      letter-spacing: 1px;
       transform: none;
     }
   }
@@ -200,7 +199,8 @@ const Nav = styled.nav`
   @media only screen and (max-device-width: 916px) {
     padding: 0;
     height: 100vh;
-    transform: translateX(-100%);
+    background-color: #131313;
+    left: -100%;
 
     .closeMenu {
       display: block;
@@ -217,8 +217,9 @@ const Nav = styled.nav`
 
     .navLinks {
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: center;
       font-size: 1.4rem;
+      gap: 5rem;
 
       .links {
         align-items: center;
@@ -228,8 +229,8 @@ const Nav = styled.nav`
           flex-direction: column;
           margin-left: 0;
 
-          li {
-            margin: 2.5rem 0;
+          a {
+            margin: 1.5rem 0;
             transform: translateY(100px);
             opacity: 0;
           }

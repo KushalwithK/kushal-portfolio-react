@@ -71,7 +71,7 @@ const ContactContainer = styled.div`
     color: #cd486b;
   }
   #github:hover {
-    color: #171515;
+    color: #2e2e2e;
   }
   #discord:hover {
     color: #7289da;

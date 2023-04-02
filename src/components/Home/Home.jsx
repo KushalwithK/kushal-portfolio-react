@@ -7,21 +7,44 @@ import gsap from "gsap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import AboveFooter from "../subComponents/AboveFooter";
-import { baseUrl, projects as project, images } from "../services/Provider";
+import { baseUrl, projects as project, images, testimonial as testimonials } from "../services/Provider";
 import axios from "axios";
+import CleverStudio from "../../assets/clever_studio.png"
+import { BiRightArrowAlt } from "react-icons/bi"
 
 const Home = ({ setViewProject }) => {
-  const [projects, setProjects] = useState([]);
-
-  let counting = 1;
+  const [projects, setProjects] = useState([
+    {
+      title: "Clever Studio",
+      description: "Clever Studio Web Development Project",
+      author: "Kushal Shah",
+      client: "Clever Studio",
+      startDate: "24 Dec 2021",
+      endDate: "4 Feb 2022",
+      url: "clever_studio",
+      image: CleverStudio
+    },
+  ]);
+  const [testimonial, setTestimonial] = useState([]);
 
   const tl = gsap.timeline();
 
+  // useEffect(() => {
+
+  //   axios.get(baseUrl + project).then((data) => {
+  //     setProjects(data.data)
+  //     console.table(data.data)
+  //   }).catch((error) => {
+  //     console.log(console.error(error));
+  //   })
+
+  // }, []);
+
   useEffect(() => {
 
-    axios.get(baseUrl + project).then((data) => {
-      setProjects(data.data)
-      console.table(data.data)
+    axios.get(baseUrl + testimonials).then((data) => {
+      setTestimonial(data.data)
+      console.table(testimonial)
     }).catch((error) => {
       console.log(console.error(error));
     })
@@ -53,7 +76,7 @@ const Home = ({ setViewProject }) => {
               <span>DEVELOPER</span>
             </span>
           </Header>
-          <AboutSection>
+          {/* <AboutSection>
             <div className="imageHolder" data-scroll>
               <img
                 data-scroll
@@ -113,47 +136,38 @@ const Home = ({ setViewProject }) => {
                 </Link>
               </Button>
             </div>
-          </AboutSection>
+          </AboutSection> */}
           <ProjectsSection>
             <ProjectTitle>
-              <p data-scroll data-scroll-speed="1">
-                Recent
-              </p>
-              <p data-scroll data-scroll-speed="2">
-                Projects
-              </p>
+              <div>
+                <p>
+                  Recent
+                </p>
+                <p>
+                  Projects
+                </p>
+              </div>
             </ProjectTitle>
-            {projects.slice(0, 3).map((item, index) => (
-              <ProjectCard key={index} className="project-card">
-                <ImageHolder
-                  onMouseEnter={() => {
-                    setViewProject("View-Project");
-                  }}
-                  onMouseLeave={() => {
-                    setViewProject(false);
-                  }}
-                  onClick={() => {
-                    setViewProject(false);
-                  }}
-                >
-                  <Link to="/works/" >
-                    <img src={baseUrl + images + item.images[0].name} />
-                  </Link>
-                </ImageHolder>
-                <ProjectInfo>
-                  <div>
-                    <p>#</p>
-                    <div className="titleNdesc">
-                      <span>{item.title}</span>
-                      <p>
-                        {item.description}
-                      </p>
-                    </div>
-                  </div>
-                  <a href="https://www.google.com"></a>
-                </ProjectInfo>
-              </ProjectCard>
-            ))}
+            <ProjectCards>
+              {projects.slice(0, 4).map((item, index) => (
+                <ProjectCard key={index} >
+                  <ImageHolder>
+                    <img src={item.image} />
+                    <ProjectInfo>
+                      <div>
+                        <span>{item.title}</span>
+                        <p>
+                          {item.description}
+                        </p>
+                      </div>
+                      <div>
+                        <BiRightArrowAlt />
+                      </div>
+                    </ProjectInfo>
+                  </ImageHolder>
+                </ProjectCard>
+              ))}
+            </ProjectCards>
             <ViewAllBtn data-scroll data-scroll-speed="1">
               <Link
                 onMouseEnter={() => {
@@ -197,18 +211,21 @@ const Home = ({ setViewProject }) => {
                   give a honest opinion!
                 </span>
               </div>
-              <div className="testimonials">
-                <span>
-                  &#10077;{" "}
-                  <span className="text">
-                    Working with Kushal was the best Experience of my life, he
-                    even helped me with the server side stuff without any extra
-                    charges.
-                  </span>{" "}
-                  &#10078;
-                </span>
-                <span className="credit">- My Subordinate</span>
-              </div>
+              {
+                testimonial.slice(0, 1).map((test) => {
+                  <div className="testimonials">
+                    <span>
+                      &#10077;{" "}
+                      <span className="text">
+                        {test.description}
+                      </span>{" "}
+                      &#10078;
+                    </span>
+                    <span className="credit">- {test.quotedBy}</span>
+                  </div>
+                })
+              }
+
               <div className="bullets">
                 1 — <span className="current">2</span> — 3
               </div>
@@ -232,6 +249,14 @@ const Container = styled.div`
 
 const Content = styled.div`
   padding-top: 3rem;
+
+  @media (max-width: 1024px) {
+    padding-top: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    padding-top: 1rem;
+  }
 `;
 const Header = styled.div`
   height: 100vh;
@@ -254,6 +279,24 @@ const Header = styled.div`
       font-size: 15vw;
     }
 
+  }
+
+  @media (max-width: 1024px) {
+    
+  }
+  @media (max-width: 768px) {
+    span {
+      font-size: 15vw;
+      text-align: center;
+
+      &:nth-child(2) {
+      font-size: 15vw;
+    }
+
+    &:nth-child(3) {
+      font-size: 15vw;
+    }
+    }
   }
 `;
 
@@ -337,10 +380,11 @@ const Button = styled.div`
 const ProjectsSection = styled.section``;
 
 const ProjectTitle = styled.div`
-  font-size: clamp(4rem, 10vw, 10rem);
+  display: flex;
+  font-size: clamp(4rem, 7vw, 7rem);
   font-family: "Made Bon Voyage Regular";
   line-height: 1;
-  padding-bottom: 15vh;
+  padding-bottom: 10vh;
   p {
     :last-child {
       padding-left: 7rem;
@@ -348,15 +392,22 @@ const ProjectTitle = styled.div`
   }
 `;
 
+const ProjectCards = styled.section`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+`
+
 const ProjectCard = styled.div`
-  width: 60vw;
-  margin-bottom: 8rem;
-  :nth-child(odd) {
-    margin-left: auto;
+  width: 45vw;
+  margin-bottom: 2rem;
+  border-radius: 1.5rem;
+  overflow: hidden;
+
+  &:hover {
+
   }
-  :nth-last-child(2) {
-    margin-bottom: 0;
-  }
+  
   @media (max-width: 1024px) {
     width: 100%;
     :nth-child(even) {
@@ -371,8 +422,7 @@ const ProjectCard = styled.div`
 `;
 
 const ImageHolder = styled.div`
-  height: 33vw;
-  overflow: hidden;
+  height: 100%;
   position: relative;
   a {
     display: block;
@@ -382,96 +432,65 @@ const ImageHolder = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 1.5rem;
-  }
-
-  @media (max-width: 1024px) {
-    width: 100%;
-    height: 40vh;
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-    height: 25vh;
   }
 `;
 
 const ProjectInfo = styled.div`
-  font-family: "Made Bon Voyage Regular";
+width: 100%;
   display: flex;
-  padding: 1.5rem 0;
-  padding-bottom: 0;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(19,19,19);
+  background: linear-gradient(0deg, rgba(19,19,19,1) 0%, rgba(0,212,255,0) 100%);
+  font-family: "Made Bon Voyage Regular";
   color: #dddddd;
-  div {
-    display: flex;
-    p {
-      font-family: "Gilroy regular", sans-serif;
-      padding: 0 0.5rem;
-      opacity: 0.5;
-      font-size: 2.5rem;
-      rotate: -10deg;
-    }
-    .titleNdesc {
-      display: flex;
-      flex-direction: column;
-      span {
-        font-size: 5rem;
+  padding: 1rem 2rem;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  span {
+        font-size: 2rem;
+        text-shadow: 4px 4px 11px rgba(0,0,0,1);
       }
       p {
         font-family: "gilroy regular";
+        line-height: 1.7;
         padding: 0;
-        font-size: 1.5rem;
-        rotate: 0deg;
+        font-size: 1rem;
       }
-    }
-  }
+  div:nth-child(2) {
+    height: 3rem;
+    width: 3rem;
+    border-radius: 10rem;
+    border: 2px solid #ffffff29;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  @media (max-width: 1024px) {
-      div {
-        .titleNdesc {
-        span {
-          font-size: 4rem;
-        }
-        p {
-          font-size: 1.2rem;
-        }
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    div {
-      p {
-        font-size: 1.5rem;
-      }
-        .titleNdesc {
-        span {
-          font-size: 2.5rem;
-        }
-        p {
-          font-size: 0.9rem;
-        }
-      }
+    svg {
+      color: #ffffff86;
+      font-size: 1.5rem;
     }
   }
 `;
 
 const ViewAllBtn = styled.div`
   font-family: "Made Bon Voyage Regular";
-  font-size: 9rem;
+  font-size: clamp(4rem, 7vw, 7rem);
   display: flex;
   align-items: center;
-  margin-top: 10rem;
+  justify-content: flex-end;
+  margin-top: 6rem;
   a {
     color: #fff;
-    margin-left: auto;
     text-decoration: none;
   }
   span {
     padding-right: 3rem;
   }
   svg {
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
   }
 
   @media (max-width: 1024px) {

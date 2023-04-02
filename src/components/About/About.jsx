@@ -77,7 +77,7 @@ const About = ({ setViewProject }) => {
             I am currently a <span className="bold">Computer Science</span>{" "}
             student in <span className="bold">BSC CS</span> in{" "}
             <span className="bold">Mumbai, India. </span>
-            I’ve been self leaning <span className="bold">
+            I’ve been self learning <span className="bold">
               Programming
             </span>{" "}
             since i was <span className="bold">16yr</span> old, I failed many

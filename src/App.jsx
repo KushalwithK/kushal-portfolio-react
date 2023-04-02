@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
 import { Route, Routes, useLocation } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar";

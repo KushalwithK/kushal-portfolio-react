@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   /* cursor: none; */
 }
+
 body {
   background-color: #131313;
   color: #fff;
@@ -72,6 +75,7 @@ body {
   font-weight: normal;
   src: local("Gilroy-Thin"), url("/fonts/Gilroy-Thin.woff") format("woff");
 }
+
 @font-face {
   font-family: "Gilroy SemiBold";
   font-style: normal;
@@ -79,30 +83,35 @@ body {
   src: local("Gilroy-SemiBold"),
     url("/fonts/Gilroy-SemiBold.woff") format("woff");
 }
+
 @font-face {
   font-family: "Gilroy Regular";
   font-style: normal;
   font-weight: normal;
   src: local("Gilroy-Regular"), url("/fonts/Gilroy-Regular.woff") format("woff");
 }
+
 @font-face {
   font-family: "Gilroy Medium";
   font-style: normal;
   font-weight: normal;
   src: local("Gilroy-Medium"), url("/fonts/Gilroy-Medium.woff") format("woff");
 }
+
 @font-face {
   font-family: "Gilroy Light";
   font-style: normal;
   font-weight: normal;
   src: local("Gilroy-Light"), url("/fonts/Gilroy-Light.woff") format("woff");
 }
+
 @font-face {
   font-family: "Gilroy Heavy";
   font-style: normal;
   font-weight: normal;
   src: local("Gilroy-Heavy"), url("/fonts/Gilroy-Heavy.woff") format("woff");
 }
+
 @font-face {
   font-family: "Gilroy ExtraBold";
   font-style: normal;
@@ -110,12 +119,14 @@ body {
   src: local("Gilroy-ExtraBold"),
     url("/fonts/Gilroy-ExtraBold.woff") format("woff");
 }
+
 @font-face {
   font-family: "Gilroy Bold";
   font-style: normal;
   font-weight: normal;
   src: local("Gilroy-Bold"), url("/fonts/Gilroy-Bold.woff") format("woff");
 }
+
 @font-face {
   font-family: "Gilroy Black";
   font-style: normal;

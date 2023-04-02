@@ -1,17 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { FiArrowRight } from "react-icons/fi";
 import AboveFooter from "../subComponents/AboveFooter";
 import Footer from "../Footer/Footer";
+import { baseUrl, contact } from "../services/Provider";
+import axios from "axios";
 
 const Contact = () => {
+
+  const [contactDetails, setContactDetails] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "",
+    messageBody: ""
+  });
+
+  const handleFormSubmissionClick = (event) => {
+    event.preventDefault()
+    console.log(contactDetails)
+    axios.post(baseUrl + contact, contactDetails).then((response) => {
+      console.log(response.data)
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
   return (
     <>
       <Container data-scroll-section>
         <div className="content">
           <div className="form">
             <span className="heading">Send a hi!</span>
-            <form action="">
+            <form>
               <div className="name input">
                 <div className="firstName label">
                   <span>
@@ -22,6 +43,9 @@ const Contact = () => {
                     type="text"
                     name="fName"
                     id="firstName"
+                    onChange={(event) => {
+                      setContactDetails({ ...contactDetails, firstName: event.target.value })
+                    }}
                   />
                 </div>
                 <div className="lastName label">
@@ -32,7 +56,10 @@ const Contact = () => {
                     className="form-input"
                     type="text"
                     name="fName"
-                    id="firstName"
+                    id="lastName"
+                    onChange={(event) => {
+                      setContactDetails({ ...contactDetails, lastName: event.target.value })
+                    }}
                   />
                 </div>
               </div>
@@ -45,6 +72,9 @@ const Contact = () => {
                   type="text"
                   name="email"
                   id="userEmail"
+                  onChange={(event) => {
+                    setContactDetails({ ...contactDetails, email: event.target.value })
+                  }}
                 />
               </div>
               <div className="subject label input">
@@ -56,20 +86,25 @@ const Contact = () => {
                   type="text"
                   name="subject"
                   id="userSubject"
+                  onChange={(event) => {
+                    setContactDetails({ ...contactDetails, subject: event.target.value })
+                  }}
                 />
               </div>
               <div className="body label input">
                 <span>
                   <span className="bold">04 </span>Body
                 </span>
-                <textarea id="userBody" name="body" rows="10"></textarea>
+                <textarea id="userBody" name="body" rows="10" autoComplete="off" onChange={(event) => {
+                  setContactDetails({ ...contactDetails, messageBody: event.target.value })
+                }}></textarea>
               </div>
-              <div className="send">
+              <button className="send" type="submit" onClick={handleFormSubmissionClick}>
                 <span className="text">Send message</span>
                 <span className="arrow">
                   <FiArrowRight />
                 </span>
-              </div>
+              </button>
             </form>
           </div>
           <div className="maps">
@@ -77,8 +112,8 @@ const Contact = () => {
           </div>
         </div>
       </Container>
-      <AboveFooter/>
-      <Footer/>
+      <AboveFooter />
+      <Footer />
     </>
   );
 };
@@ -146,6 +181,7 @@ const Container = styled.div`
       }
       .send {
         margin-top: 2rem;
+        background-color: transparent;
         width: 100%;
         border: 2px solid #2e2e2e;
         color: #c2c2c2;
