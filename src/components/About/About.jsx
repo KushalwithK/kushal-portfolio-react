@@ -16,6 +16,7 @@ import Footer from "../Footer/Footer";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import AboveFooter from "../subComponents/AboveFooter";
+import RouteTransition from "../subComponents/RouteTransition";
 
 const About = ({ setViewProject }) => {
   const tl = gsap.timeline();
@@ -35,7 +36,7 @@ const About = ({ setViewProject }) => {
   }, []);
 
   return (
-    <>
+    <RouteTransition>
       <Container data-scroll-section>
         <div className="content">
           <span className="heading" data-scroll data-scroll-speed="1">
@@ -121,27 +122,27 @@ const About = ({ setViewProject }) => {
             Expertise
           </span>
           <div className="skills">
-            <span className="java" data-scroll data-scroll-speed="1">
+            <a className="java" data-scroll data-scroll-speed="1">
               <FaJava />
-            </span>
-            <span className="spring" data-scroll data-scroll-speed="2">
+            </a>
+            <a className="spring" data-scroll data-scroll-speed="2">
               <SiSpring />
-            </span>
-            <span className="android" data-scroll data-scroll-speed="1">
+            </a>
+            <a className="android" data-scroll data-scroll-speed="1">
               <FaAndroid />
-            </span>
-            <span className="html" data-scroll data-scroll-speed="2">
+            </a>
+            <a className="html" data-scroll data-scroll-speed="2">
               <FaHtml5 />
-            </span>
-            <span className="css" data-scroll data-scroll-speed="1">
+            </a>
+            <a className="css" data-scroll data-scroll-speed="1">
               <FaCss3 />
-            </span>
-            <span className="js" data-scroll data-scroll-speed="2">
+            </a>
+            <a className="js" data-scroll data-scroll-speed="2">
               <DiJavascript1 />
-            </span>
-            <span className="react" data-scroll data-scroll-speed="1">
+            </a>
+            <a className="react" data-scroll data-scroll-speed="1">
               <FaReact />
-            </span>
+            </a>
           </div>
           <div className="tools">
             <span data-scroll data-scroll-speed="1">
@@ -207,9 +208,9 @@ const About = ({ setViewProject }) => {
         </div>
       </Container>
       <Quote setViewProject={setViewProject} />
-      <AboveFooter/>
+      <AboveFooter />
       <Footer />
-    </>
+    </RouteTransition>
   );
 };
 
@@ -264,7 +265,7 @@ const Container = styled.div`
       justify-content: space-between;
       align-items: center;
 
-      > span {
+      > a {
         background-color: #242424;
         padding: 2.8rem;
         border-radius: 50%;

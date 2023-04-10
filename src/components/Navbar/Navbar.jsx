@@ -39,6 +39,34 @@ const Navbar = ({ setViewProject }) => {
     });
   });
 
+  const tl2 = gsap.timeline();
+
+  useEffect(() => {
+    tl2.from(".logoPC", {
+      x: -200
+    }).from(".navLinks .links ul a", {
+      y: -100
+    }).from(".location", {
+      x: 250
+    })
+      .to(".logoPC", {
+        duration: 0.5,
+        x: 0,
+        delay: 2,
+        ease: 'power4.easeIn'
+      }).to(".navLinks .links ul a", {
+        delay: -0.5,
+        duration: 0.5,
+        y: 0,
+        stagger: 0.1,
+        ease: 'power4.easeIn'
+      }).to(".location", {
+        duration: 0.3,
+        x: 0,
+        ease: 'power4.easeIn'
+      })
+  }, [])
+
   return (
     <>
       <NavPhone>
@@ -141,6 +169,10 @@ const Nav = styled.nav`
   opacity: 1;
   z-index: 9999;
   transform: none;
+  background: #1010107a;
+  border-bottom: 1px solid #2c2c2c;
+  /* -webkit-filter: blur(8px); */
+  backdrop-filter: blur(5px);
 
   
   .closeMenu {
@@ -157,7 +189,6 @@ const Nav = styled.nav`
     width: 100%;
     justify-content: space-between;
     align-items: center;
-
     font-size: 1.2rem;
     color: #d4d4d4;
 
@@ -173,9 +204,7 @@ const Nav = styled.nav`
           text-decoration: none;
           margin: 0 2.5rem;
           font-family: "Gilroy Regular";
-          opacity: 1;
           letter-spacing: 1px;
-          transform: none;
 
           &.active {
             font-family: "Gilroy Medium";

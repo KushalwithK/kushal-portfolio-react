@@ -1,68 +1,50 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import gsap from "gsap";
+import { gsap, Expo } from "gsap";
 
 const Preloader = () => {
-  const tl = gsap.timeline({ paused: true });
-
-  const curve = "M0 502S175 272 500 272s500 230 500 230V0H0Z";
-  const flat = "M0 2S175 1 500 1s500 1 500 1V0H0Z";
-
-  const text = useRef()
+  const tl = gsap.timeline();
 
   useEffect(() => {
-    tl.from(".loader-wrap-heading h1", {
+    tl.from(".loader-wrap span", {
+      fontSize: "0vw",
+      letterSpacing: "0rem"
+    }).to(".loader-wrap span", {
+      duration: 1,
+      fontSize: "8vw",
+      letterSpacing: "1.5rem",
+      ease: Expo.easeInOut
+    }).to(".loader-wrap p", {
+      duration: 1,
+      delay: -0.5,
+      opacity: 100,
+      ease: Expo.easeInOut
+    }).to(".loader-wrap .text-wrap", {
       delay: 1,
-      y: 200,
-      skewY: 10,
-    }).to(".loader-wrap-heading h1", {
-      delay: 1.5,
-      y: -200,
-      skewY: 10,
-    });
-    tl.to(".svgPath", {
-      duration: 0.8,
-      attr: { d: curve },
-      ease: "power2.easeIn",
-    }).to(".svgPath", {
-      duration: 0.8,
-      attr: { d: flat },
-      ease: "power2.easeOut",
-    });
-    tl.to(".loader-wrap", {
-      y: -1500,
-    });
-    tl.to(".loader-wrap", {
-      zIndex: -1,
-      display: "none",
-    });
+      duration: 1,
+      y: -1000,
+      ease: "power4.easeOut"
+    }).to(".loader-wrap", {
+      delay: -1.1,
+      duration: 1,
+      y: -1000,
+      ease: "power4.easeOut"
+    })
+    // tl.play();
   }, []);
 
-  useEffect(() => {
-    tl.play();
-  }, []);
   return (
     <Container className="loader-wrap">
-      <div className="loader-wrap">
-        <svg viewBox="0 0 1000 1000" preserveAspectRatio="none">
-          <path
-            className="svgPath"
-            id="svg"
-            d="M0,1005S175,995,500,995s500,5,500,5V0H0Z"
-          ></path>
-        </svg>
-
-        <div className="loader-wrap-heading">
-          <span>
-            <h1 ref={text}>Kushal</h1>
-          </span>
-        </div>
+      <div className="text-wrap">
+        <span className="text">INITIALIZING</span>
+        <p>have a cup of coffee, and hold tight ...</p>
       </div>
     </Container>
   );
 };
 
 const Container = styled.div`
+  
   position: absolute;
   top: 0;
   left: 0;
@@ -70,58 +52,28 @@ const Container = styled.div`
   bottom: 0;
   z-index: 999999;
   font-family: "Made Bon Voyage Regular";
-  span {
-    overflow: hidden;
-    display: block;
-  }
-  .loader-wrap {
-    position: absolute;
-    z-index: 10;
-    height: 100vh;
-    width: 100%;
+  background: #1b1b1b;
+
+  div {
     display: flex;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-  }
-  .loader-wrap svg {
-    position: absolute;
-    top: 0;
-    width: 100vw;
-    height: 110vh;
-    fill: #fff;
-  }
-  .loader-wrap .loader-wrap-heading h1 {
-    font-size: 120px;
-    z-index: 20;
-    color: #e0e0e0;
-    text-transform: uppercase;
-    font-weight: lighter;
-    color: #101010;
-  }
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    flex-direction: column;
+    height: 100%;
     width: 100%;
-  }
-  .container h1 {
-    font-weight: lighter;
-    font-size: 100px;
-    text-transform: uppercase;
-  }
-  @media (max-width: 767px) {
-    .loader-wrap svg {
-      width: 200vw;
-      margin-left: -50vw;
+    justify-content: center;
+    align-items: center;
+    background: #0e0e0e;
+    span {
+      font-size: 0vw;
+      letter-spacing: 0rem;
     }
-    .loader-wrap .loader-wrap-heading,
-    .container h1 {
-      font-size: 60px;
+
+    p {
+      font-size: 1.5rem;
+      font-family: "gilroy thin", sans-serif;
+      letter-spacing: 5px;
+      opacity: 0;
     }
-  }
+  }  
 `;
 
 export default Preloader;

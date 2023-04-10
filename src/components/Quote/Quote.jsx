@@ -37,7 +37,7 @@ function Quote({ setViewProject }) {
     <QuoteMain data-scroll-section>
       <div>
         <span>
-          “ <span className="quote">{quotes.content}</span> ”
+          &#10077;{" "}<span className="quote">{quotes.content}</span>{" "}&#10078;
         </span>
 
         <p className="author">— {quotes.author}</p>

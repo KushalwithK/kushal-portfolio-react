@@ -15,6 +15,7 @@ import Projects from "./components/Project/Projects";
 import Footer from "./components/Footer/Footer";
 import About from "./components/About/About";
 import Contact from "./components/Contact/Contact";
+import Project from "./components/Project/Project";
 
 function App() {
   const [viewProject, setViewProject] = useState("");
@@ -87,11 +88,11 @@ function App() {
                 path="/projects"
                 element={<Projects setViewProject={setViewProject} />}
               />
-              {/* <Route
+              <Route
                 exact
-                path="/works/:id"
-                element={<SingleProject setViewProject={setViewProject} />}
-              /> */}
+                path="/projects/:projectName"
+                element={<Project setViewProject={setViewProject} />}
+              />
               <Route
                 exact
                 path="/contact"

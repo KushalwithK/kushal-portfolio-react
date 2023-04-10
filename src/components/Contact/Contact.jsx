@@ -5,6 +5,7 @@ import AboveFooter from "../subComponents/AboveFooter";
 import Footer from "../Footer/Footer";
 import { baseUrl, contact } from "../services/Provider";
 import axios from "axios";
+import RouteTransition from "../subComponents/RouteTransition";
 
 const Contact = () => {
 
@@ -27,7 +28,7 @@ const Contact = () => {
   }
 
   return (
-    <>
+    <RouteTransition>
       <Container data-scroll-section>
         <div className="content">
           <div className="form">
@@ -114,7 +115,7 @@ const Contact = () => {
       </Container>
       <AboveFooter />
       <Footer />
-    </>
+    </RouteTransition>
   );
 };
 

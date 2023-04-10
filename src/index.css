@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkatra&family=Amita&family=Fondamento&family=Kalam&family=Lobster&family=Oleo+Script&family=Sriracha&family=Tillana:wght@500&display=swap');
 
 * {
   margin: 0;
@@ -14,51 +15,11 @@ body {
 }
 
 @font-face {
-  font-family: "LifeT Italic";
-  font-style: normal;
-  font-weight: normal;
-  src: local("LifeT_Italic"),
-    url("/fonts/life-t/LifeT_Italic.ttf") format("woff");
-}
-
-@font-face {
-  font-family: "HelmetNeue Regular";
-  font-style: normal;
-  font-weight: normal;
-  src: local("HelmetNeue-Regular"),
-    url("/fonts/helmet/HelmetNeue-Regular.otf") format("woff");
-}
-
-@font-face {
-  font-family: "Sacred Valley";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Sacred Valley"),
-    url("/fonts/sacred-valley/sacred-valley-400.ttf") format("woff");
-}
-
-@font-face {
   font-family: "Made Bon Voyage Regular";
   font-style: normal;
   font-weight: normal;
   src: local("Sacred Valley"),
     url("/fonts/sacred-valley/sacred-valley-400.ttf") format("woff");
-}
-
-@font-face {
-  font-family: "Times";
-  font-style: normal;
-  font-weight: normal;
-  src: local("Times Sans Serif"),
-    url("/fonts/times/Times-Sans-Serif.ttf") format("woff");
-}
-
-@font-face {
-  font-family: "Times Now Semi Italic";
-  font-style: normal;
-  font-weight: normal;
-  src: local("TimesNow-SemiLightItalic"),
-    url("/fonts/timesNow/TimesNow-SemiLightItalic.woff") format("woff");
 }
 
 @font-face {

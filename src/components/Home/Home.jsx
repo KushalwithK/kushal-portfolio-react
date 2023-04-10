@@ -7,42 +7,30 @@ import gsap from "gsap";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import AboveFooter from "../subComponents/AboveFooter";
-import { baseUrl, projects as project, images, testimonial as testimonials } from "../services/Provider";
-import axios from "axios";
+import { baseUrl, projects as project, images, testimonial as testimonials, apiSingleton } from "../services/Provider";
 import CleverStudio from "../../assets/clever_studio.png"
 import { BiRightArrowAlt } from "react-icons/bi"
 
 const Home = ({ setViewProject }) => {
-  const [projects, setProjects] = useState([
-    {
-      title: "Clever Studio",
-      description: "Clever Studio Web Development Project",
-      author: "Kushal Shah",
-      client: "Clever Studio",
-      startDate: "24 Dec 2021",
-      endDate: "4 Feb 2022",
-      url: "clever_studio",
-      image: CleverStudio
-    },
-  ]);
+  const [projects, setProjects] = useState([]);
   const [testimonial, setTestimonial] = useState([]);
 
   const tl = gsap.timeline();
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   axios.get(baseUrl + project).then((data) => {
-  //     setProjects(data.data)
-  //     console.table(data.data)
-  //   }).catch((error) => {
-  //     console.log(console.error(error));
-  //   })
+    apiSingleton.get(project).then((data) => {
+      setProjects(data.data)
+      console.table(data.data)
+    }).catch((error) => {
+      console.log(console.error(error));
+    })
 
-  // }, []);
+  }, []);
 
   useEffect(() => {
 
-    axios.get(baseUrl + testimonials).then((data) => {
+    apiSingleton.get(testimonials).then((data) => {
       setTestimonial(data.data)
       console.table(testimonial)
     }).catch((error) => {
@@ -52,13 +40,13 @@ const Home = ({ setViewProject }) => {
   }, []);
 
   useEffect(() => {
-    tl.from(".hero-title div", {
+    tl.from(".hero-title .navLinks", {
       duration: 1.8,
       y: 100,
       opacity: 0,
-      ease: "power4.out",
-      delay: 1,
-      skewY: 7,
+      ease: "power3.out",
+      delay: 3,
+      skewX: 7,
       stagger: {
         amount: 0.4,
       },
@@ -70,8 +58,8 @@ const Home = ({ setViewProject }) => {
       <Container data-scroll-section>
         <Content>
           <Header className="hero-title" data-scroll data-scroll-speed="2">
-            <span>
-              <span>INNOVATIVE</span>
+            <span className="navLinks">
+              <span>CREATIVE</span>
               <span>FULL STACK</span>
               <span>DEVELOPER</span>
             </span>
@@ -150,22 +138,24 @@ const Home = ({ setViewProject }) => {
             </ProjectTitle>
             <ProjectCards>
               {projects.slice(0, 4).map((item, index) => (
-                <ProjectCard key={index} >
-                  <ImageHolder>
-                    <img src={item.image} />
-                    <ProjectInfo>
-                      <div>
-                        <span>{item.title}</span>
-                        <p>
-                          {item.description}
-                        </p>
-                      </div>
-                      <div>
-                        <BiRightArrowAlt />
-                      </div>
-                    </ProjectInfo>
-                  </ImageHolder>
-                </ProjectCard>
+                <Link to={`/projects/${item.url}`}>
+                  <ProjectCard key={index} >
+                    <ImageHolder>
+                      <img src={baseUrl + images + item.images[0].name} />
+                      <ProjectInfo>
+                        <div>
+                          <span>{item.title}</span>
+                          <p>
+                            {item.description}
+                          </p>
+                        </div>
+                        <div>
+                          <BiRightArrowAlt />
+                        </div>
+                      </ProjectInfo>
+                    </ImageHolder>
+                  </ProjectCard>
+                </Link>
               ))}
             </ProjectCards>
             <ViewAllBtn data-scroll data-scroll-speed="1">
@@ -213,16 +203,18 @@ const Home = ({ setViewProject }) => {
               </div>
               {
                 testimonial.slice(0, 1).map((test) => {
-                  <div className="testimonials">
-                    <span>
-                      &#10077;{" "}
-                      <span className="text">
-                        {test.description}
-                      </span>{" "}
-                      &#10078;
-                    </span>
-                    <span className="credit">- {test.quotedBy}</span>
-                  </div>
+                  return (
+                    <div className="testimonials" key={test.id}>
+                      <span>
+                        &#10077;{" "}
+                        <span className="text">
+                          {test.description}
+                        </span>{" "}
+                        &#10078;
+                      </span>
+                      <span className="credit">- {test.quotedBy}</span>
+                    </div>
+                  )
                 })
               }
 
@@ -248,7 +240,7 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  padding-top: 3rem;
+  padding-top: 4rem;
 
   @media (max-width: 1024px) {
     padding-top: 2rem;
@@ -268,7 +260,7 @@ const Header = styled.div`
   span {
     display: block;
     font-family: "Made Bon Voyage Regular";
-    font-size: 10vw;
+    font-size: 11vw;
     line-height: 1;
 
     &:nth-child(2) {
@@ -401,11 +393,31 @@ const ProjectCards = styled.section`
 const ProjectCard = styled.div`
   width: 45vw;
   margin-bottom: 2rem;
-  border-radius: 1.5rem;
+  border-radius: 1rem;
   overflow: hidden;
+  box-shadow: 0px 10px 36px 4px rgba(0,0,0,0.1);
+
+  div {
+    div {
+      div:nth-child(2) {
+        transition: all 0.3s ease;
+      }
+    }
+  }
 
   &:hover {
-
+    div {
+      div {
+        div:nth-child(2) {
+          border: none;
+          background: white;
+          transform: rotate(-45deg);
+          svg {
+            color: black;
+          }
+        }
+      }
+    }
   }
   
   @media (max-width: 1024px) {
@@ -422,8 +434,7 @@ const ProjectCard = styled.div`
 `;
 
 const ImageHolder = styled.div`
-  height: 100%;
-  position: relative;
+
   a {
     display: block;
     height: 100%;
@@ -436,28 +447,24 @@ const ImageHolder = styled.div`
 `;
 
 const ProjectInfo = styled.div`
-width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgb(19,19,19);
-  background: linear-gradient(0deg, rgba(19,19,19,1) 0%, rgba(0,212,255,0) 100%);
+  background: #181818;
   font-family: "Made Bon Voyage Regular";
   color: #dddddd;
   padding: 1rem 2rem;
-  position: absolute;
-  bottom: 0;
-  left: 0;
   span {
-        font-size: 2rem;
-        text-shadow: 4px 4px 11px rgba(0,0,0,1);
-      }
-      p {
-        font-family: "gilroy regular";
+        font-size: 2.5rem;
+  }
+  p {
+        font-family: "gilroy light";
+        color: #ffffff78;
         line-height: 1.7;
         padding: 0;
-        font-size: 1rem;
-      }
+        font-size: 1.1rem;
+        letter-spacing: .1rem;
+  }
   div:nth-child(2) {
     height: 3rem;
     width: 3rem;
@@ -466,6 +473,7 @@ width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    aspect-ratio: 1;
 
     svg {
       color: #ffffff86;
